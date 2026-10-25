@@ -119,7 +119,7 @@ function Man2({
   const posX = 0
   const posY = 0.4
   const posZ = -0.7
-  const scale = 2.25
+  const scale = 3.6
   const rotationY = 0
 
   // mobilePullback：移动端相机沿「焦点→相机」方向拉远的倍率（1 = 不变，1.2 = 远 20%）
