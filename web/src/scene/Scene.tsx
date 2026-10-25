@@ -145,7 +145,44 @@ const scale = 12  // 原来是 8.4，继续放大
     crossRadius: 0.25,
   }
 
+  useEffect(() => {
+  // 当前模型没有内置相机，自动让人物全身居中并撑满画面
+  if (glbCam) return
+
+  const camera = get().camera
+  if (!(camera instanceof THREE.PerspectiveCamera)) return
+
+  model.updateWorldMatrix(true, true)
+
+  const box = new THREE.Box3().setFromObject(model)
+  if (box.isEmpty()) return
+
+  const center = box.getCenter(new THREE.Vector3())
+  const size = box.getSize(new THREE.Vector3())
+
+  camera.zoom = 1
+  camera.aspect = viewportSize.width / viewportSize.height
+
+  // 人物占屏幕高度约 95%，上下留少量空间
+  const fill = 0.95
+  const halfFov = THREE.MathUtils.degToRad(camera.fov / 2)
+  const distanceForHeight = size.y / (2 * Math.tan(halfFov) * fill)
+  const distanceForWidth =
+    size.x / (2 * Math.tan(halfFov) * camera.aspect * fill)
+
+  const distance =
+    Math.max(distanceForHeight, distanceForWidth) + size.z / 2
+
+  camera.position.set(center.x, center.y, center.z + distance)
+  camera.lookAt(center)
+  camera.near = Math.max(0.01, distance / 1000)
+  camera.far = Math.max(500, distance + size.z * 10)
+  camera.updateProjectionMatrix()
+
+  focusRef.current.copy(center)
+}, [model, glbCam, get, focusRef, viewportSize.width, viewportSize.height])
   const get = useThree((s) => s.get)
+  const viewportSize = useThree((s) => s.size)
   const { scene, animations } = useGLTF(`${import.meta.env.BASE_URL}models/me.glb`)
 
   // 克隆模型；收集眼睛对象、聚焦锚点对象、glb 自带相机、各锚点景深开关
