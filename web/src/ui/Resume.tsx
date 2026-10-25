@@ -76,7 +76,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         groups: [
           {
             heading: '怀安',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
+            logoImg: `${import.meta.env.BASE_URL}images/IMG_3856.JPG`,
             sub: 'tech-DIY creator',
             items: ['120K on Douyin · 87K on Bilibili · 23K on Xiaohongshu'],
             links: SOCIAL_LINKS,
@@ -113,7 +113,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         period: '202511 – 202610',
         place: '广东朗科智能有限公司 · 东莞',
         role: '硬件工程师',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: '广东朗科智能有限公司' },
+        logo: { src: `${import.meta.env.BASE_URL}images/d4f2116a42bc11d7cda09be06acfee03.jpg`, alt: '广东朗科智能有限公司' },
         points: [
           '',
           '服务客户：',
