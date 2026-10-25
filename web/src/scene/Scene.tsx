@@ -269,6 +269,8 @@ function Man2({
     const down = (event: PointerEvent) => {
       if (!event.isPrimary) { cancel(); return }
       if (event.button !== 0 || !isOverModel(event)) return
+      // 鼠标命中人物后阻止浏览器启动文字选择；触屏仍保留纵向滚动。
+      if (event.pointerType !== 'touch' && event.cancelable) event.preventDefault()
       active = { id: event.pointerId, x: event.clientX, y: event.clientY, yaw: dragYaw.current, locked: false }
     }
     const move = (event: PointerEvent) => {
@@ -304,8 +306,13 @@ function Man2({
     }
     const reset = (event: MouseEvent) => {
       if (!isOverModel(event)) return
+      if (event.cancelable) event.preventDefault()
+      window.getSelection()?.removeAllRanges()
       cancel()
       applyYaw(0)
+    }
+    const selectStart = (event: Event) => {
+      if (active && event.cancelable) event.preventDefault()
     }
     const click = (event: MouseEvent) => {
       if (performance.now() < suppressClickUntil) {
@@ -313,6 +320,7 @@ function Man2({
         event.stopPropagation()
       }
     }
+    window.addEventListener('selectstart', selectStart, true)
     window.addEventListener('pointerdown', down, true)
     window.addEventListener('pointermove', move, { capture: true, passive: false })
     window.addEventListener('pointerup', up, true)
@@ -321,6 +329,7 @@ function Man2({
     window.addEventListener('dblclick', reset, true)
     window.addEventListener('click', click, true)
     return () => {
+      window.removeEventListener('selectstart', selectStart, true)
       window.removeEventListener('pointerdown', down, true)
       window.removeEventListener('pointermove', move, true)
       window.removeEventListener('pointerup', up, true)
