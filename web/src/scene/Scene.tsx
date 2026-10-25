@@ -222,6 +222,116 @@ function Man2({
     }
   }, [scene])
 
+  // 独立旋转层：以人物中心为轴，初始姿态和位置保持不变。
+  const turntableRef = useRef<THREE.Group>(null)
+  const dragYaw = useRef(0)
+  const modelCenter = useMemo(() => {
+    model.updateWorldMatrix(true, true)
+    return new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3())
+  }, [model])
+
+  useEffect(() => {
+    const raycaster = new THREE.Raycaster()
+    const pointer = new THREE.Vector2()
+    let active: { id: number; x: number; y: number; yaw: number; locked: boolean } | null = null
+    let lastTap: { time: number; x: number; y: number } | null = null
+    let suppressClickUntil = 0
+    const styleTargets = [get().gl.domElement, document.querySelector<HTMLElement>('.hero')]
+      .filter((el): el is HTMLElement => el !== null)
+    const oldTouchActions = styleTargets.map(el => el.style.touchAction)
+    styleTargets.forEach(el => { el.style.touchAction = 'pan-y pinch-zoom' })
+
+    const isOverModel = (event: PointerEvent | MouseEvent) => {
+      const target = event.target
+      if (target instanceof Element && target.closest('a, button, input, textarea, select, [contenteditable="true"]')) return false
+      const hero = document.querySelector<HTMLElement>('.hero')
+      if (hero) {
+        const rect = hero.getBoundingClientRect()
+        if (event.clientY < rect.top || event.clientY > rect.bottom) return false
+      }
+      const { camera, gl } = get()
+      const rect = gl.domElement.getBoundingClientRect()
+      if (!rect.width || !rect.height || event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom) return false
+      pointer.set((event.clientX - rect.left) / rect.width * 2 - 1,
+        -(event.clientY - rect.top) / rect.height * 2 + 1)
+      camera.updateMatrixWorld()
+      model.updateWorldMatrix(true, true)
+      raycaster.setFromCamera(pointer, camera)
+      return raycaster.intersectObject(model, true).length > 0
+    }
+    const applyYaw = (yaw: number) => {
+      dragYaw.current = yaw
+      if (turntableRef.current) turntableRef.current.rotation.y = yaw
+      get().invalidate()
+    }
+    const cancel = () => { active = null; lastTap = null }
+    const down = (event: PointerEvent) => {
+      if (!event.isPrimary) { cancel(); return }
+      if (event.button !== 0 || !isOverModel(event)) return
+      active = { id: event.pointerId, x: event.clientX, y: event.clientY, yaw: dragYaw.current, locked: false }
+    }
+    const move = (event: PointerEvent) => {
+      if (!active || event.pointerId !== active.id) return
+      if (event.pointerType === 'mouse' && !(event.buttons & 1)) { cancel(); return }
+      const dx = event.clientX - active.x
+      const dy = event.clientY - active.y
+      if (!active.locked) {
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 6) return
+        // 纵向手势交还页面滚动；横向手势才旋转。
+        if (Math.abs(dy) >= Math.abs(dx)) { cancel(); return }
+        active.locked = true
+        lastTap = null
+      }
+      if (event.cancelable) event.preventDefault()
+      applyYaw(active.yaw + dx * 0.008)
+    }
+    const up = (event: PointerEvent) => {
+      if (!active || event.pointerId !== active.id) return
+      if (active.locked) {
+        suppressClickUntil = performance.now() + 400
+        // 避免长时间拖拽导致角度数值无限增长。
+        applyYaw(Math.atan2(Math.sin(dragYaw.current), Math.cos(dragYaw.current)))
+      } else if (event.pointerType !== 'mouse') {
+        const now = performance.now()
+        if (lastTap && now - lastTap.time < 350 &&
+            Math.hypot(event.clientX - lastTap.x, event.clientY - lastTap.y) < 24) {
+          applyYaw(0)
+          lastTap = null
+        } else lastTap = { time: now, x: event.clientX, y: event.clientY }
+      }
+      active = null
+    }
+    const reset = (event: MouseEvent) => {
+      if (!isOverModel(event)) return
+      cancel()
+      applyYaw(0)
+    }
+    const click = (event: MouseEvent) => {
+      if (performance.now() < suppressClickUntil) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+    }
+    window.addEventListener('pointerdown', down, true)
+    window.addEventListener('pointermove', move, { capture: true, passive: false })
+    window.addEventListener('pointerup', up, true)
+    window.addEventListener('pointercancel', cancel, true)
+    window.addEventListener('blur', cancel)
+    window.addEventListener('dblclick', reset, true)
+    window.addEventListener('click', click, true)
+    return () => {
+      window.removeEventListener('pointerdown', down, true)
+      window.removeEventListener('pointermove', move, true)
+      window.removeEventListener('pointerup', up, true)
+      window.removeEventListener('pointercancel', cancel, true)
+      window.removeEventListener('blur', cancel)
+      window.removeEventListener('dblclick', reset, true)
+      window.removeEventListener('click', click, true)
+      styleTargets.forEach((el, i) => { el.style.touchAction = oldTouchActions[i] })
+    }
+  }, [get, model])
+
   // 相机动画总帧数：从 CameraAction clip 读（回退到最长 clip / 默认履历+入场+横移），不写死。
   // 作品区帧段 = [RESUME_FRAMES, totalFrames]，长度随 glb 而定（当前 me.glb 为 100 帧）。
   const totalFrames = useMemo(() => {
@@ -539,7 +649,11 @@ if (camera.fov !== glbCam.fov || camera.zoom !== zoom) {
       rotation={[0, (rotationY * Math.PI) / 180, 0]}
       scale={scale}
     >
-      <primitive object={model} />
+      <group ref={turntableRef} position={modelCenter}>
+        <group position={[-modelCenter.x, -modelCenter.y, -modelCenter.z]}>
+          <primitive object={model} />
+        </group>
+      </group>
     </group>
   )
 }
@@ -633,4 +747,3 @@ export default function Scene() {
     </>
   )
 }
-
