@@ -111,18 +111,18 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
         title: '作品集',
         tagline: '3D个人简历',
         items: [
-          { name: 'ZOOOP', meta: 'AI 原生创作平台', link: 'https://hwhwjg.github.io/3D-/' },
+          { name: '3d个人简历', meta: '  ', link: 'https://hwhwjg.github.io/3D-/' },
         ],
       },
       {
         id: 'graphics',
         no: '04',
-        title: '个人业余作品',
+        title: '个人业余作品以及获奖证书',
         tagline: 'Raymarching · WebGL · Blender',
         items: [
-          { name: '待补充', slug: 'raymarching' },
-          { name: '待补充', slug: 'webgl' },
-          { name: '待补充', slug: 'blender' },
+          { name: '英语四六级证书', slug: '英语四六级证书' },
+          { name: '计算机二级证书', slug: '计算机二级证书' },
+          { name: '湖南省电子设计大赛获奖证书', slug: '湖南省电子设计大赛获奖证书' },
           { name: '其他业余作品', slug: 'other-side-works' },
         ],
       },
