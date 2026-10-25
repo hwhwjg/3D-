@@ -104,7 +104,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         role: '技术顾问',
         logo: {src: `${import.meta.env.BASE_URL}images/OIP.webp`,alt: '湖南慧通商务有限公司',},
         points: [
-          ' ',
+          '专业技能：维修各种数码产品',
           '服务客户：所有华为产品客户',
           '负责：华为相关产品维修',
         ],
@@ -115,9 +115,9 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         role: '硬件工程师',
         logo: { src: `${import.meta.env.BASE_URL}images/d4f2116a42bc11d7cda09be06acfee03.jpg`, alt: '广东朗科智能有限公司' },
         points: [
-          '',
-          '服务客户：',
-          '负责：产品研发，产品生产，产品销售',
+          '专业技能：各种仪器的使用：示波器，万用表，恒温箱...',
+          '服务客户：小米...',
+          '负责：产品研发，产品生产，对接客户',
         ],
       },
       {
@@ -126,7 +126,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         groups: [
           {
             heading: '小雨转晴',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
+            logoImg: `${import.meta.env.BASE_URL}images/IMG_3856.JPG`,
             sub: '综合性博主',
             items: ['抖音 xx 万 · B站 xx 万 · 小红书 xx 万 关注'],
             links: SOCIAL_LINKS,
