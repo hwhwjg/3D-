@@ -209,10 +209,10 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
 // 板块配图（横向画廊每张卡片左侧的整高封面）。放到 public/works/covers/ 下。
 // 缺图时左栏用大编号渐变占位，放入图片后自动点亮。
 export const SECTION_COVERS: Record<string, string> = {
-  ad: `${import.meta.env.BASE_URL}works/covers/ad.jpg`,
-  maker: `${import.meta.env.BASE_URL}works/covers/maker.jpg`,
-  product: `${import.meta.env.BASE_URL}works/covers/product.jpg`,
-  graphics: `${import.meta.env.BASE_URL}works/covers/graphics.jpg`,
+  ad: `${import.meta.env.BASE_URL}works/covers/示波器.jpg`,
+  maker: `${import.meta.env.BASE_URL}works/covers/大头照.jpg`,
+  product: `${import.meta.env.BASE_URL}works/covers/3D简历.png`,
+  graphics: `${import.meta.env.BASE_URL}works/covers/小羊.png`,
 }
 
 // 统计一个板块的作品数（items 或 groups 求和），用于索引行 hover 显示
