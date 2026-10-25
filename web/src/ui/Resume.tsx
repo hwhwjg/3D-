@@ -75,7 +75,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         place: 'Content Creator',
         groups: [
           {
-            heading: '小郑还挺忙',
+            heading: '怀安',
             logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
             sub: 'tech-DIY creator',
             items: ['120K on Douyin · 87K on Bilibili · 23K on Xiaohongshu'],
@@ -102,7 +102,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
         period: '202506 – 202511',
         place: '湖南慧通商务有限公司 · 长沙',
         role: '技术顾问',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
+        logo: {src: `${import.meta.env.BASE_URL}images/OIP.webp`,alt: '湖南慧通商务有限公司',},
         points: [
           ' ',
           '服务客户：所有华为产品客户',
