@@ -75,7 +75,7 @@ export const WORKS: Record<'zh' | 'en', WorksLang> = {
           { name: '熟练使用各种ai工具', meta: '包括各种海外AI，以及各种高阶用法', slug: 'animation-collection' },
           { name: '熟练使用各种编程语言', slug: 'other-works' },
         ],
-        awards: ['虎啸奖', 'FWA', 'Awwwards'],
+        awards: ['湖南省电子设计大赛一等奖', '', ''],
       },
       {
         id: 'maker',
