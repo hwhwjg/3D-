@@ -560,7 +560,7 @@ function Post2({
   const post = {
     bloomIntensity: 0.6,
     bloomThreshold: 0.82,
-    dof: true,
+    dof: false,
     startBokeh: 7.4,
     startRange: 2.0,
     focusBokeh: 11.0,
