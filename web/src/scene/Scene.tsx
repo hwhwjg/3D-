@@ -116,8 +116,8 @@ function Man2({
   dofBokehRef: MutableRefObject<number>
   dofRangeRef: MutableRefObject<number>
 }) {
-const posY = -1.5 // 原来是 0.4，先往下移
-const scale = 12  // 原来是 8.4，继续放大
+  const posY = -6
+  const scale = 12  // 原来是 8.4，继续放大
   const posZ = -0.7
   const scale = 8.4
   const rotationY = 0
