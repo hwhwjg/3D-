@@ -7,17 +7,17 @@ const SOCIAL_LINKS = [
   {
     id: 'douyin',
     label: '抖音',
-    href: 'https://www.douyin.com/user/MS4wLjABAAAAlmQDgHf0NlbsjrfWENm8LyrIikxSRRq7mzlzQSIStQJkV7Ju52B6A55zw5TUDU5d',
+    href: 'https://v.douyin.com/H9k1NPD_m6Y/ 9@3.com',
   },
   {
     id: 'bilibili',
     label: 'B站',
-    href: 'https://space.bilibili.com/275344092?spm_id_from=333.937.0.0',
+    href: 'https://b23.tv/EIcJMWg',
   },
   {
     id: 'xiaohongshu',
     label: '小红书',
-    href: 'https://www.xiaohongshu.com/user/profile/5ceba8c8000000000502fd69',
+    href: '  ',
   },
 ]
 
