@@ -95,7 +95,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
     entries: [
       {
         period: '2013 – 2017',
-        place: '湖南科技许愿',
+        place: '湖南科技学院',
         role: '电子信息工程 · 本科',
       },
       {
