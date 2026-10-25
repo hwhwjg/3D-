@@ -24,7 +24,7 @@ type Lang = 'en' | 'zh'
 
 const COPY = {
   en: {
-    title: 'About Sen',
+    title: 'About Xiyu.Tang',
     paragraphs: [
       "I'm Sen — a creative technologist living where code meets art. I spend my days around coding, creativity, playful interaction & design, and CG work. I love studying and combining skills across different fields — to create, and to explore more possibilities.",
     ],
@@ -32,7 +32,7 @@ const COPY = {
   zh: {
     title: 'About Sen',
     paragraphs: [
-      '我是 Sen——一个游走在代码与艺术之间的创意技术人。我常年和 Coding、创意、有趣的交互 & 设计、CG 创作等打交道，喜欢研究并组合不同领域的技能，来创造并探索更多可能性。',
+      '我是唐夕宇，欢迎来到我的个人站。',
     ],
   },
 }
