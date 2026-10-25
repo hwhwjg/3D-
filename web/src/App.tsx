@@ -30,7 +30,7 @@ const COPY = {
     ],
   },
   zh: {
-    title: 'About Sen',
+    title: 'About Xiyu.Tang',
     paragraphs: [
       '我是唐夕宇，欢迎来到我的个人站。',
     ],
@@ -170,7 +170,7 @@ export default function App() {
         <span className="hero-mark bl">+</span>
         <span className="hero-mark br">+</span>
         <div className="hero-meta hm-tl">
-          <span className="hm-name">Sen Zheng 郑越升</span>
+          <span className="hm-name">Xiyu.Tang 唐夕宇</span>
           <span>Creative Technologist</span>
         </div>
         <div className="hero-meta hm-tr">Portfolio — 2026</div>
