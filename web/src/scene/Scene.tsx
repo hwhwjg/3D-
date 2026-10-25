@@ -437,7 +437,7 @@ function Man2({
         .copy(camPos.current)
         .sub(focusRef.current)
         .applyQuaternion(paraQuat.current)
-        .multiplyScalar(0.75)
+        .multiplyScalar(1.1)
       // 移动端沿「焦点→相机」方向整体拉远：焦点屏幕位置不变，主体更小、留白更多
       if (isMobile.current) tmpVec.current.multiplyScalar(cam.mobilePullback)
       tmpVec.current.add(focusRef.current)
@@ -453,10 +453,17 @@ function Man2({
           camera.translateX(-dist * cam.mobileTimelineShift * tlWeight)
         }
       }
-      if (camera.fov !== glbCam.fov) {
-        camera.fov = glbCam.fov
-        camera.updateProjectionMatrix()
-      }
+// 首页放大 1.4 倍，滚动到第一个节点时恢复
+const heroWeight =
+  1 - THREE.MathUtils.smoothstep(frame, 0, FRAMES_PER_NODE)
+
+const zoom = 1 + 0.6 * heroWeight
+
+if (camera.fov !== glbCam.fov || camera.zoom !== zoom) {
+  camera.fov = glbCam.fov
+  camera.zoom = zoom
+  camera.updateProjectionMatrix()
+}
     }
 
     // 4) 眼睛跟随（用当前激活相机做屏幕投影）；移动端 / 触屏则跳过
