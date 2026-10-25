@@ -119,7 +119,7 @@ function Man2({
   const posX = 0
   const posY = 0.4
   const posZ = -0.7
-  const scale = 4.5
+  const scale = 2.25
   const rotationY = 0
 
   // mobilePullback：移动端相机沿「焦点→相机」方向拉远的倍率（1 = 不变，1.2 = 远 20%）
@@ -437,6 +437,7 @@ function Man2({
         .copy(camPos.current)
         .sub(focusRef.current)
         .applyQuaternion(paraQuat.current)
+        .multiplyScalar(0.7)
       // 移动端沿「焦点→相机」方向整体拉远：焦点屏幕位置不变，主体更小、留白更多
       if (isMobile.current) tmpVec.current.multiplyScalar(cam.mobilePullback)
       tmpVec.current.add(focusRef.current)
