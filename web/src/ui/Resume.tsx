@@ -136,7 +136,7 @@ const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
       {
         period: '2026 – 至今',
         place: ' ',
-        groups: [{ logo: 'zooop', sub: 'AI 创作平台', link: 'https://zooop.ai/' }],
+        groups: [{ logo: '更多经历', sub: '待补充', link: ' 链接 ' }],
       },
     ],
   },
