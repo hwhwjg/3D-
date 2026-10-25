@@ -456,9 +456,7 @@ function Man2({
 // 首页放大 1.4 倍，滚动到第一个节点时恢复
 const heroWeight =
   1 - THREE.MathUtils.smoothstep(frame, 0, FRAMES_PER_NODE)
-
-const zoom = 1 + 0.6 * heroWeight
-
+const zoom = 2
 if (camera.fov !== glbCam.fov || camera.zoom !== zoom) {
   camera.fov = glbCam.fov
   camera.zoom = zoom
